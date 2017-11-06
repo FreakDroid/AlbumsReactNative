@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView } from 'react-native';
+import AlbumDetail from './albumDetail';
 import axios from 'axios';
 
 
 class AlbumList extends Component {
 
-    state = { albums: []};
+    state = { albums: [] };
 
     componentWillMount(){
         console.log('Mounting the componenet');
@@ -14,12 +15,17 @@ class AlbumList extends Component {
             this.setState({albums: response.data}));
     }
 
+    renderAllAlbums(){
+        return this.state.albums.map(album => 
+             <AlbumDetail key={album.title} album={album} />)
+    }
+
     render(){
         console.log(this.state);
         return (
-            <View>
-                <Text>Album List!!!!</Text>
-            </View>
+            <ScrollView>
+                {this.renderAllAlbums()}
+            </ScrollView>
         );
     };
 }
